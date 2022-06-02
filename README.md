@@ -70,7 +70,12 @@ $ ./fidelius gkm
 
 ```
 # Note that the e (encrypt) command also accepts <requester-public-key> (the last argument) in X.509 standard
-$ ./fidelius e "Wormtail should never have been Potter cottage's secret keeper." lmXgblZwotx+DfBgKJF0lZXtAXgBEYr5khh79Zytr2Y= 6uj1RdDUbcpI3lVMZvijkMC8Te20O4Bcyz0SyivX8Eg= AYhVZpbVeX4KS5Qm/W0+9Ye2q3rnVVGmqRICmseWni4= BAheD5rUqTy4V5xR4/6HWmYpopu5CO+KO8BECS0udNqUTSNo91TIqIIy1A4Vh+F94c+n9vAcwXU2bGcfsI5f69Y=
+$ ./fidelius e\
+	"Wormtail should never have been Potter cottage's secret keeper."\
+	lmXgblZwotx+DfBgKJF0lZXtAXgBEYr5khh79Zytr2Y=\
+	6uj1RdDUbcpI3lVMZvijkMC8Te20O4Bcyz0SyivX8Eg=\
+	AYhVZpbVeX4KS5Qm/W0+9Ye2q3rnVVGmqRICmseWni4=\
+	BAheD5rUqTy4V5xR4/6HWmYpopu5CO+KO8BECS0udNqUTSNo91TIqIIy1A4Vh+F94c+n9vAcwXU2bGcfsI5f69Y=
 # OUTPUT:
 {
 	"encryptedData": "pzMvVZNNVtJzqPkkxcCbBUWgDEBy/mBXIeT2dJWI16ZAQnnXUb9lI+S4k8XK6mgZSKKSRIHkcNvJpllnBg548wUgavBa0vCRRwdL6kY6Yw=="
@@ -81,7 +86,11 @@ $ ./fidelius e "Wormtail should never have been Potter cottage's secret keeper."
 
 ```
 # Note that the d (decrypt) command also accepts <sender-public-key> (the last argument) in X.509 standard
-$ ./fidelius d pzMvVZNNVtJzqPkkxcCbBUWgDEBy/mBXIeT2dJWI16ZAQnnXUb9lI+S4k8XK6mgZSKKSRIHkcNvJpllnBg548wUgavBa0vCRRwdL6kY6Yw== 6uj1RdDUbcpI3lVMZvijkMC8Te20O4Bcyz0SyivX8Eg= lmXgblZwotx+DfBgKJF0lZXtAXgBEYr5khh79Zytr2Y= DMxHPri8d7IT23KgLk281zZenMfVHSdeamq0RhwlIBk= BABVt+mpRLMXiQpIfEq6bj8hlXsdtXIxLsspmMgLNI1SR5mHgDVbjHO2A+U4QlMddGzqyEidzm1AkhtSxSO2Ahg=
+$ ./fidelius d\
+	pzMvVZNNVtJzqPkkxcCbBUWgDEBy/mBXIeT2dJWI16ZAQnnXUb9lI+S4k8XK6mgZSKKSRIHkcNvJpllnBg548wUgavBa0vCRRwdL6kY6Yw== 6uj1RdDUbcpI3lVMZvijkMC8Te20O4Bcyz0SyivX8Eg=\
+	lmXgblZwotx+DfBgKJF0lZXtAXgBEYr5khh79Zytr2Y=\
+	DMxHPri8d7IT23KgLk281zZenMfVHSdeamq0RhwlIBk=\
+	BABVt+mpRLMXiQpIfEq6bj8hlXsdtXIxLsspmMgLNI1SR5mHgDVbjHO2A+U4QlMddGzqyEidzm1AkhtSxSO2Ahg=
 # OUTPUT:
 {
 	"decryptedData": "Wormtail should never have been Potter cottage's secret keeper."

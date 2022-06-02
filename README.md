@@ -25,7 +25,7 @@ gradlew clean build jar
 
 ## Usage
 
--   Alternatively. a pre-built release can be downloaded from here. Please ensure that JRE 1.8+ is installed, to run the binaries in the release.
+-   Alternatively. a pre-built release can be downloaded from [here](https://github.com/mgrmtech/fidelius-cli/releases). Please ensure that JRE 1.8+ is installed, to run the binaries in the release.
 
 -   Fidelius CLI works with the following commands
 
@@ -40,7 +40,7 @@ gradlew clean build jar
 
 -   The following commands exemplify the usage of the above commands.
 
-## Key Material Generation
+### Key Material Generation
 
 ```
 $ cd fidelius-1.0.0/bin
@@ -66,7 +66,7 @@ $ ./fidelius gkm
 # Let's suppose the above output represents the generated key material of the sender
 ```
 
-## Encryption
+### Encryption
 
 ```
 # Note that the e (encrypt) command also accepts <requester-public-key> (the last argument) in X.509 standard
@@ -82,7 +82,7 @@ $ ./fidelius e\
 }
 ```
 
-## Decryption
+### Decryption
 
 ```
 # Note that the d (decrypt) command also accepts <sender-public-key> (the last argument) in X.509 standard

@@ -218,7 +218,7 @@ public class Utils {
 			(unsupportedCommand ? unsupportedCommandHelp : "") +
 			(badEncryptionParams ? encryptionHelp : "") +
 			(badDecryptionParams ? decryptionHelp : "") +
-			"\nFor more details on Fidelius CLI, please refer to the README at <GITHUB_LINK>\n" +
+			"\nFor more details on Fidelius CLI, please refer to the README at https://github.com/mgrmtech/fidelius-cli\n" +
 			"     ___         \n" +
 			"    |   |        \n" +
 			"    |   |        \n" +

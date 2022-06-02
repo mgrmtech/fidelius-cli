@@ -8,7 +8,7 @@ While Fidelius CLI can be used to serve a general purpose end-to-end encryption 
 
 As such, apart from the code in this project, [this link](https://sandbox.abdm.gov.in/docs/data_encrypt_decrypt) can be referred for an abstract overview of the key material generation, encryption, and decryption processes.
 
-## Usage
+## Build Fidelius CLI
 
 -   The following command(s) would build and generate .zip, and .tar distributions inside ./build/distributions
 

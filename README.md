@@ -25,7 +25,7 @@ gradlew clean build jar
 
 ## Usage
 
--   Alternatively. a pre-built release can be downloaded from [here](https://github.com/mgrmtech/fidelius-cli/releases). Please ensure that JRE 1.8+ is installed, to run the binaries in the release.
+-   Alternatively, a pre-built release can be downloaded from [here](https://github.com/mgrmtech/fidelius-cli/releases). Please ensure that JRE 1.8+ is installed, to run the binaries in the release.
 
 -   Fidelius CLI works with the following commands
 

@@ -2,7 +2,6 @@ package com.mgrm.fidelius;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mgrm.fidelius.Utils;
 import com.mgrm.fidelius.decryption.DecryptionController;
 import com.mgrm.fidelius.decryption.DecryptionRequest;
 import com.mgrm.fidelius.decryption.DecryptionResponse;

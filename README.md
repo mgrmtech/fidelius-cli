@@ -8,6 +8,10 @@ While Fidelius CLI can be used to serve a general purpose end-to-end encryption 
 
 As such, apart from the code in this project, [this link](https://sandbox.abdm.gov.in/docs/data_encrypt_decrypt) can be referred for an abstract overview of the key material generation, encryption, and decryption processes.
 
+## Acknowledgement
+
+Thanks to [Srinivas Gunti](https://github.com/itnug) for his help with a quick PoC on turning a SpringBoot application into a CLI application; and to [Sai Somanath Komanduri](https://github.com/saisk8) for his help in figuring out the corresponding Gradle build quirks and/with the BouncyCastle import.
+
 ## Build
 
 -   The following command(s) would build and generate .zip, and .tar distributions inside ./build/distributions

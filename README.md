@@ -10,7 +10,7 @@ As such, apart from the code in this project, [this link](https://sandbox.abdm.g
 
 ## Acknowledgement
 
-Thanks to [Srinivas Gunti](https://github.com/itnug) for his help with a quick PoC on turning a SpringBoot application into a CLI application; and to [Sai Somanath Komanduri](https://github.com/saisk8) for his help in figuring out the corresponding Gradle build quirks and/with the BouncyCastle import.
+Thanks to [Srinivas Gunti](https://github.com/itnug) for his help with a quick demo on turning a SpringBoot application into a CLI application; and to [Sai Somanath Komanduri](https://github.com/saisk8) for his help in figuring out the corresponding Gradle build quirks and/with the BouncyCastle import.
 
 ## Build
 

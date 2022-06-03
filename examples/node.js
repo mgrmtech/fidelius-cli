@@ -34,7 +34,12 @@ const encryptData = ({
 }) => {
 	const result = execFideliusCli([
 		"e",
-		`'${stringToEncrypt}'`,
+		// NOTE: The double stringify hack to make JSON string values work with the encrypt command
+		process.platform !== "win32"
+			? JSON.stringify(stringToEncrypt)
+					.replace('"{', "'{")
+					.replace('}"', "}'")
+			: JSON.stringify(stringToEncrypt),
 		senderNonce,
 		requesterNonce,
 		senderPrivateKey,
@@ -61,9 +66,7 @@ const decryptData = ({
 	return result;
 };
 
-const runExample = () => {
-	const stringToEncrypt = "There is no war in Ba Sing Se!";
-
+const runExample = (stringToEncrypt) => {
 	const requesterKeyMaterial = getEcdhKeyMaterial();
 	const senderKeyMaterial = getEcdhKeyMaterial();
 
@@ -106,4 +109,4 @@ const runExample = () => {
 	console.log({ decryptedData, decryptedDataWithX509PublicKey });
 };
 
-runExample();
+runExample('{"data": "There is no war in Ba Sing Se!"}');

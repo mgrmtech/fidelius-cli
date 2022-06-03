@@ -34,7 +34,7 @@ const encryptData = ({
 }) => {
 	const result = execFideliusCli([
 		"e",
-		`"${stringToEncrypt}"`,
+		`'${stringToEncrypt}'`,
 		senderNonce,
 		requesterNonce,
 		senderPrivateKey,

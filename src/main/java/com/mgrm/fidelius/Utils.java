@@ -1,10 +1,14 @@
 package com.mgrm.fidelius;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.ArrayList;
+import java.util.Scanner;
 import javax.crypto.KeyAgreement;
 import org.bouncycastle.asn1.x9.X9ECParameters;
 import org.bouncycastle.crypto.digests.SHA256Digest;
@@ -147,6 +151,31 @@ public class Utils {
 		return Utils.encodeBytesToBase64(sharedSecretBytes);
 	}
 
+	public static String[] readArgsFromFile(String filepath) {
+		ArrayList<String> argsFromFile = new ArrayList<String>();
+
+		File file = new File(filepath);
+		Scanner readFromFile = null;
+		String line = null;
+
+		try {
+			readFromFile = new Scanner(file);
+		} catch (FileNotFoundException exception) {
+			System.out.println(
+				"ERROR · File not found at the given filepath · " + filepath
+			);
+		}
+		while (readFromFile.hasNextLine()) {
+			line = readFromFile.nextLine();
+			argsFromFile.add(line);
+		}
+		String[] returnValue = argsFromFile.toArray(
+			new String[argsFromFile.size()]
+		);
+
+		return returnValue;
+	}
+
 	public static Boolean validateCliArguments(String[] args) {
 		Boolean unsupportedCommand =
 			args.length == 0 ||
@@ -207,13 +236,18 @@ public class Utils {
 			"<encrypted-data> <requester-nonce> <sender-nonce> <requester-private-key> <sender-public-key>\n"
 		);
 
+		String filepathFlagHelp = new String(
+			"\nThe --filepath (or -f) flag can be used to provide the CLI its parameters (command and the subsequent arguments) from a text file.\n"
+		);
+
 		String unsupportedCommandHelp = new String(
 			"\nFidelius CLI " +
 			(args.length == 0 || fideliusHelpNeeded ? "" : "only ") +
-			"accepts one of these commands: generate-key-material (or gkm), encrypt (or e), decrypt (or d).\n" +
+			"accepts one of these commands/flags: generate-key-material (or gkm), encrypt (or e), sane-encrypt (or se), decrypt (or d), and --filepath (or -f).\n" +
 			gkmHelp +
 			encryptionHelp +
-			decryptionHelp
+			decryptionHelp +
+			filepathFlagHelp
 		);
 
 		String fellowWithTheMehBag = new String(

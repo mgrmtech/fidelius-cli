@@ -13,12 +13,7 @@ import com.mgrm.fidelius.keypairgen.KeyPairGenController;
 
 public class FideliusApplication {
 
-	public static void main(String[] args) throws Exception {
-		Boolean invalidArgs = Utils.validateCliArguments(args);
-		if (invalidArgs) {
-			return;
-		}
-
+	private static void runCli(String[] args) throws Exception {
 		Gson gson = new GsonBuilder()
 			.disableHtmlEscaping()
 			.setPrettyPrinting()
@@ -92,5 +87,23 @@ public class FideliusApplication {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void main(String[] args) throws Exception {
+		String[] _args = args;
+
+		if (
+			args.length == 2 &&
+			(args[0].equals("-f") || args[0].equals("--filepath"))
+		) {
+			_args = Utils.readArgsFromFile(args[1]);
+		}
+
+		Boolean invalidArgs = Utils.validateCliArguments(_args);
+		if (invalidArgs) {
+			return;
+		}
+
+		runCli(_args);
 	}
 }

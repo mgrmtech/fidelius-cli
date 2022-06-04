@@ -39,22 +39,43 @@ gradlew clean build jar
     $ ./fidelius-cli gkm
     ```
 
-    -   `encrypt` (or `e`) · The encrypt command takes the following additional arguments.
+    -   `encrypt` (or `e`) · The `encrypt` command takes the following additional arguments.
 
     ```
-    ./fidelius-cli e <string-to-encrypt> <sender-nonce> <requester-nonce> <sender-private-key> <requester-public-key>
+    ./fidelius-cli e\
+    	<string-to-encrypt>\
+    	<sender-nonce>\
+    	<requester-nonce>\
+    	<sender-private-key>\
+    	<requester-public-key>\;
     ```
 
-    -   `sane-encrypt` (or `se`) · The sane-encrypt command behaves identically to the encrypt command, with the only difference being that it accepts base64 encoded version of the input string. Fidelius would decode this base 64 value to the original string, before encrypting it. This is available to circumvent the need to escape special characters in strings (e.g. JSON values).
+    -   `sane-encrypt` (or `se`) · The `sane-encrypt` command behaves identically to the encrypt command, with the only difference being that it accepts base64 encoded version of the input string. Fidelius would decode this base64 value to the original string, before encrypting it. This is available to circumvent the need to escape special characters in strings (e.g. JSON values).
 
     ```
-    ./fidelius-cli se <string-to-encrypt-base64-encoded> <sender-nonce> <requester-nonce> <sender-private-key> <requester-public-key>
+    ./fidelius-cli se\
+    	<string-to-encrypt-base64-encoded>\
+    	<sender-nonce>\
+    	<requester-nonce>\
+    	<sender-private-key>\
+    	<requester-public-key>\;
     ```
 
-    -   `decrypt` (or `d`) · The decrypt command takes the following additional arguments.
+    -   `decrypt` (or `d`) · The `decrypt` command takes the following additional arguments.
 
     ```
-    ./fidelius-cli d <encrypted-data> <requester-nonce> <sender-nonce> <requester-private-key> <sender-public-key>
+    ./fidelius-cli d\
+    	<encrypted-data>\
+    	<requester-nonce>\
+    	<sender-nonce>\
+    	<requester-private-key>\
+    	<sender-public-key>\;
+    ```
+
+    -   `--filepath` (or `-f`) · The `--filepath` flag can be used to provide the CLI its parameters (command and the subsequent arguments) from a text file. This can be used to circumvent Windows' terminals' "This command is too long" (>8192 characters) limitation in case of long input strings.
+
+    ```
+    ./fidelius-cli -f /path/to/params/file.txt
     ```
 
 -   The following commands exemplify the usage of the above commands.
@@ -115,4 +136,18 @@ $ ./fidelius-cli d\
 {
 	"decryptedData": "Wormtail should never have been Potter cottage's secret keeper."
 }
+```
+
+### The `--filepath` flag
+
+```
+$ cat /path/to/example-params.txt
+d
+pzMvVZNNVtJzqPkkxcCbBUWgDEBy/mBXIeT2dJWI16ZAQnnXUb9lI+S4k8XK6mgZSKKSRIHkcNvJpllnBg548wUgavBa0vCRRwdL6kY6Yw==
+6uj1RdDUbcpI3lVMZvijkMC8Te20O4Bcyz0SyivX8Eg=
+lmXgblZwotx+DfBgKJF0lZXtAXgBEYr5khh79Zytr2Y=
+DMxHPri8d7IT23KgLk281zZenMfVHSdeamq0RhwlIBk=
+BABVt+mpRLMXiQpIfEq6bj8hlXsdtXIxLsspmMgLNI1SR5mHgDVbjHO2A+U4QlMddGzqyEidzm1AkhtSxSO2Ahg=
+
+$ ./fidelius-cli --filepath /path/to/example-parms.txt
 ```

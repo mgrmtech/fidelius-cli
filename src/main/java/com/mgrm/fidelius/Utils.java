@@ -26,6 +26,10 @@ public class Utils {
 		return Base64.decode(value);
 	}
 
+	public static String decodeBase64ToString(String value) {
+		return new String(Base64.decode(value));
+	}
+
 	public static byte[] calculateXorOfBytes(
 		byte[] byteArrayA,
 		byte[] byteArrayB
@@ -153,24 +157,22 @@ public class Utils {
 					args[0].equals("generate-key-material") ||
 					args[0].equals("e") ||
 					args[0].equals("encrypt") ||
+					args[0].equals("se") ||
+					args[0].equals("sane-encrypt") ||
 					args[0].equals("d") ||
 					args[0].equals("decrypt")
 				)
 			);
-		// System.out.println("unsupportedCommand: " + unsupportedCommand);
 		Boolean fideliusHelpNeeded =
 			args.length >= 1 && (args[0].equals("help") || args[0].equals("h"));
-		// System.out.println("fideliusHelpNeeded: " + fideliusHelpNeeded);
 		Boolean badEncryptionParams =
 			args.length >= 1 &&
 			(args[0].equals("e") || args[0].equals("encrypt")) &&
 			args.length < 6;
-		// System.out.println("badEncryptionParams: " + badEncryptionParams);
 		Boolean badDecryptionParams =
 			args.length >= 1 &&
 			(args[0].equals("d") || args[0].equals("decrypt")) &&
 			args.length < 6;
-		// System.out.println("badDecryptionParams: " + badDecryptionParams);
 
 		String gkmHelp = new String(
 			"\nThe generate-key-material (or gkm) command generates an ECDH key pair, and a random nonce.\n"

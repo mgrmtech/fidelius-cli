@@ -1,7 +1,12 @@
 const { execSync } = require("child_process");
 const path = require("path");
 
-const binPath = path.join(__dirname, "fidelius-1.0.0", "bin", "fidelius");
+const binPath = path.join(
+	__dirname,
+	"fidelius-cli-1.1.0",
+	"bin",
+	"fidelius-cli"
+);
 
 const execFideliusCli = (args) => {
 	const shellCommand = process.platform !== "win32" ? "sh" : "";
@@ -13,9 +18,7 @@ const execFideliusCli = (args) => {
 		return JSON.parse(result.replace(/(\r\n|\n|\r)/gm, ""));
 	} catch (error) {
 		console.error(
-			`ERROR · execFideliusCli · Command: ${args.join(" ")} ·`,
-			{ result },
-			error
+			`ERROR · execFideliusCli · Command: ${args.join(" ")}\n${result}`
 		);
 	}
 };
@@ -34,12 +37,27 @@ const encryptData = ({
 }) => {
 	const result = execFideliusCli([
 		"e",
-		// NOTE: The double stringify hack to make JSON string values work with the encrypt command
-		process.platform !== "win32"
-			? JSON.stringify(stringToEncrypt)
-					.replace('"{', "'{")
-					.replace('}"', "}'")
-			: JSON.stringify(stringToEncrypt),
+		stringToEncrypt,
+		senderNonce,
+		requesterNonce,
+		senderPrivateKey,
+		requesterPublicKey,
+	]);
+	return result;
+};
+
+const saneEncryptData = ({
+	stringToEncrypt,
+	senderNonce,
+	requesterNonce,
+	senderPrivateKey,
+	requesterPublicKey,
+}) => {
+	const base64EncodedStringToEncrypt =
+		Buffer.from(stringToEncrypt).toString("base64");
+	const result = execFideliusCli([
+		"se",
+		base64EncodedStringToEncrypt,
 		senderNonce,
 		requesterNonce,
 		senderPrivateKey,
@@ -66,13 +84,13 @@ const decryptData = ({
 	return result;
 };
 
-const runExample = (stringToEncrypt) => {
+const runExample = ({ stringToEncrypt }) => {
 	const requesterKeyMaterial = getEcdhKeyMaterial();
 	const senderKeyMaterial = getEcdhKeyMaterial();
 
 	console.log({ requesterKeyMaterial, senderKeyMaterial });
 
-	const { encryptedData } = encryptData({
+	const saneEncryptionResult = saneEncryptData({
 		stringToEncrypt,
 		senderNonce: senderKeyMaterial.nonce,
 		requesterNonce: requesterKeyMaterial.nonce,
@@ -80,7 +98,7 @@ const runExample = (stringToEncrypt) => {
 		requesterPublicKey: requesterKeyMaterial.publicKey,
 	});
 
-	const { encryptedData: encryptedDataWithX509PublicKey } = encryptData({
+	const saneEncryptionWithX509PublicKeyResult = saneEncryptData({
 		stringToEncrypt,
 		senderNonce: senderKeyMaterial.nonce,
 		requesterNonce: requesterKeyMaterial.nonce,
@@ -88,25 +106,33 @@ const runExample = (stringToEncrypt) => {
 		requesterPublicKey: requesterKeyMaterial.x509PublicKey,
 	});
 
-	console.log({ encryptedData, encryptedDataWithX509PublicKey });
+	console.log({
+		encryptedData: saneEncryptionResult?.encryptedData,
+		encryptedDataWithX509PublicKey:
+			saneEncryptionWithX509PublicKeyResult?.encryptedData,
+	});
 
-	const { decryptedData } = decryptData({
-		encryptedData,
+	const decryptionResult = decryptData({
+		encryptedData: saneEncryptionResult?.encryptedData,
 		requesterNonce: requesterKeyMaterial.nonce,
 		senderNonce: senderKeyMaterial.nonce,
 		requesterPrivateKey: requesterKeyMaterial.privateKey,
 		senderPublicKey: senderKeyMaterial.publicKey,
 	});
 
-	const { decryptedData: decryptedDataWithX509PublicKey } = decryptData({
-		encryptedData,
+	const decryptionResultWithX509PublicKey = decryptData({
+		encryptedData: saneEncryptionResult?.encryptedData,
 		requesterNonce: requesterKeyMaterial.nonce,
 		senderNonce: senderKeyMaterial.nonce,
 		requesterPrivateKey: requesterKeyMaterial.privateKey,
 		senderPublicKey: senderKeyMaterial.x509PublicKey,
 	});
 
-	console.log({ decryptedData, decryptedDataWithX509PublicKey });
+	console.log({
+		decryptedData: decryptionResult?.decryptedData,
+		decryptedDataWithX509PublicKey:
+			decryptionResultWithX509PublicKey?.decryptedData,
+	});
 };
 
-runExample('{"data": "There is no war in Ba Sing Se!"}');
+runExample({ stringToEncrypt: '{"data": "There is no war in Ba Sing Se!"}' });

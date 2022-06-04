@@ -28,9 +28,15 @@ public class FideliusApplication {
 			switch (args[0]) {
 				case "e":
 				case "encrypt":
+				case "se":
+				case "sane-encrypt":
 					{
 						int i = 0;
-						final String stringToEncrypt = args[++i];
+						Boolean isStringBase64Encoded =
+							args[0].indexOf("s") != -1;
+						final String stringToEncrypt = isStringBase64Encoded
+							? Utils.decodeBase64ToString(args[++i])
+							: args[++i];
 						final String senderNonce = args[++i];
 						final String requesterNonce = args[++i];
 						final String senderPrivateKey = args[++i];

@@ -33,23 +33,38 @@ gradlew clean build jar
 
 -   Fidelius CLI works with the following commands
 
-    -   generate-key-material (or gkm)
-        The generate-key-material command generates ECDH key pair, and a random nonce.
-    -   encrypt (or e)
-        The encrypt command takes the following additional arguments:
-        <string-to-encrypt> <sender-nonce> <requester-nonce> <sender-private-key> <requester-public-key>
-    -   decrypt (or d)
-        The decrypt command takes the following additional arguments:
-        <encrypted-data> <requester-nonce> <sender-nonce> <requester-private-key> <sender-public-key>
+    -   `generate-key-material` (or `gkm`) · The generate-key-material command generates ECDH key pair, and a random nonce.
+
+    ```
+    $ ./fidelius-cli gkm
+    ```
+
+    -   `encrypt` (or `e`) · The encrypt command takes the following additional arguments.
+
+    ```
+    ./fidelius-cli e <string-to-encrypt> <sender-nonce> <requester-nonce> <sender-private-key> <requester-public-key>
+    ```
+
+    -   `sane-encrypt` (or `se`) · The sane-encrypt command behaves identically to the encrypt command, with the only difference being that it accepts base64 encoded version of the input string. Fidelius would decode this base 64 value to the original string, before encrypting it. This is available to circumvent the need to escape special characters in strings (e.g. JSON values).
+
+    ```
+    ./fidelius-cli se <string-to-encrypt-base64-encoded> <sender-nonce> <requester-nonce> <sender-private-key> <requester-public-key>
+    ```
+
+    -   `decrypt` (or `d`) · The decrypt command takes the following additional arguments.
+
+    ```
+    ./fidelius-cli d <encrypted-data> <requester-nonce> <sender-nonce> <requester-private-key> <sender-public-key>
+    ```
 
 -   The following commands exemplify the usage of the above commands.
 
 ### Key Material Generation
 
 ```
-$ cd fidelius-1.0.0/bin
+$ cd fidelius-cli-1.x.x/bin
 
-$ ./fidelius gkm
+$ ./fidelius-cli gkm
 # OUTPUT:
 {
 	"privateKey": "DMxHPri8d7IT23KgLk281zZenMfVHSdeamq0RhwlIBk=",
@@ -59,7 +74,7 @@ $ ./fidelius gkm
 }
 # Let's suppose the above output represents the generated key material of the requester
 
-$ ./fidelius gkm
+$ ./fidelius-cli gkm
 # OUTPUT:
 {
 	"privateKey": "AYhVZpbVeX4KS5Qm/W0+9Ye2q3rnVVGmqRICmseWni4=",
@@ -74,7 +89,7 @@ $ ./fidelius gkm
 
 ```
 # Note that the e (encrypt) command also accepts <requester-public-key> (the last argument) in X.509 standard
-$ ./fidelius e\
+$ ./fidelius-cli e\
 	"Wormtail should never have been Potter cottage's secret keeper."\
 	lmXgblZwotx+DfBgKJF0lZXtAXgBEYr5khh79Zytr2Y=\
 	6uj1RdDUbcpI3lVMZvijkMC8Te20O4Bcyz0SyivX8Eg=\
@@ -90,7 +105,7 @@ $ ./fidelius e\
 
 ```
 # Note that the d (decrypt) command also accepts <sender-public-key> (the last argument) in X.509 standard
-$ ./fidelius d\
+$ ./fidelius-cli d\
 	pzMvVZNNVtJzqPkkxcCbBUWgDEBy/mBXIeT2dJWI16ZAQnnXUb9lI+S4k8XK6mgZSKKSRIHkcNvJpllnBg548wUgavBa0vCRRwdL6kY6Yw==\
 	6uj1RdDUbcpI3lVMZvijkMC8Te20O4Bcyz0SyivX8Eg=\
 	lmXgblZwotx+DfBgKJF0lZXtAXgBEYr5khh79Zytr2Y=\

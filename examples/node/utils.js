@@ -2,6 +2,14 @@ const path = require("path");
 const fs = require("fs");
 
 module.exports = {
+	getFideliusVersion: function () {
+		const gradleBuildContent = fs.readFileSync(
+			path.join(__dirname, "../../build.gradle"),
+			{ encoding: "utf-8" }
+		);
+		const [version] = gradleBuildContent.match(/\d+\.\d+\.\d+/);
+		return version;
+	},
 	generateRandomUUID: function () {
 		// Timestamp
 		let d = new Date().getTime();

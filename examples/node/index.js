@@ -1,16 +1,19 @@
 const path = require("path");
 const { execSync } = require("child_process");
 const { writeFileSync, unlinkSync } = require("fs");
-const { generateRandomUUID, ensureDirExists } = require("./utils.js");
+const {
+	getFideliusVersion,
+	generateRandomUUID,
+	ensureDirExists,
+} = require("./utils.js");
 
 /* NOTE
- ** Ensure the version in fideliusVersion is correct
  **
  ** Run the command "./gradlew clean build unzipBuildDist", before running this example,
  ** to ensure that the binPath exists.
  */
 
-const fideliusVersion = "1.1.0";
+const fideliusVersion = getFideliusVersion();
 const binPath = path.join(
 	__dirname,
 	"../../build/distributions",

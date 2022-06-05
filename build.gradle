@@ -40,12 +40,22 @@ jar {
 	*/
 }
 
-task unzipBuildDist(type: Copy) {
-	dependsOn(build)
+Collection getListOfFolders(String dir, String pattern) {
+	file(dir).listFiles({ file -> !file.isFile() && file.name ==~ pattern } as FileFilter)
+}
 
-	def zipFile = file('build/distributions/fidelius-cli-' + version + '.zip')
-	def outputDir = file("${buildDir}/distributions")
+task addBuildDistToExamples(type: Copy) {
+	// Perform a clean build of the project
+	dependsOn('clean')
+	dependsOn('build')
+	tasks.findByName('build').mustRunAfter('clean')
 
+	// Clean any previous distributions from the examples folder
+	delete getListOfFolders("${rootDir}/examples", /fidelius-cli-\d+\.\d+\.\d+/)
+
+	// Unzip and copy build distribuion (.zip) into the examples folder
+	def zipFile = file("build/distributions/fidelius-cli-${version}.zip")
+	def outputDir = file("${rootDir}/examples")
 	from zipTree(zipFile)
 	into outputDir
 }

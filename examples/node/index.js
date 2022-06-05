@@ -9,17 +9,14 @@ const {
 
 /* NOTE
  **
- ** Run the command "./gradlew clean build unzipBuildDist", before running this example,
- ** to ensure that the binPath exists.
+ ** Run the gradle task addBuildDistToExamples ("./gradlew addBuildDistToExamples"),
+ ** before running this example, to ensure that the binPath exists.
  */
 
 const fideliusVersion = getFideliusVersion();
 const binPath = path.join(
 	__dirname,
-	"../../build/distributions",
-	`fidelius-cli-${fideliusVersion}`,
-	"bin",
-	"fidelius-cli"
+	`../fidelius-cli-${fideliusVersion}/bin/fidelius-cli`
 );
 
 const execFideliusCli = (args) => {

@@ -72,7 +72,7 @@ gradlew clean build jar
     	<sender-public-key>\;
     ```
 
-    -   `--filepath` (or `-f`) · The `--filepath` flag can be used to provide the CLI its parameters (command and the subsequent arguments) from a text file. This can be used to circumvent Windows' terminals' "This command is too long" (>8192 characters) limitation in case of long input strings.
+    -   `--filepath` (or `-f`) · The `--filepath` flag can be used to provide the CLI its parameters (command and the subsequent arguments) from a text file. This can be used to circumvent Windows' terminals' ["This command is too long" (>8192 characters) limitation](https://docs.microsoft.com/en-us/troubleshoot/windows-client/shell-experience/command-line-string-limitation) in case of long input strings.
 
     ```
     ./fidelius-cli -f /path/to/params/file.txt

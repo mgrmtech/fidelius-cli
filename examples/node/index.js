@@ -10,7 +10,8 @@ const {
 /* NOTE
  **
  ** Run the gradle task addBuildDistToExamples ("./gradlew addBuildDistToExamples"),
- ** before running this example, to ensure that the binPath exists.
+ ** before running this example, to ensure that the binPath exists, and
+ ** it contains the latest fidelius-cli distribution.
  */
 
 const fideliusVersion = getFideliusVersion();

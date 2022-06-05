@@ -84,7 +84,7 @@ const saneEncryptData = ({
 	const base64EncodedStringToEncrypt =
 		Buffer.from(stringToEncrypt).toString("base64");
 	const paramsFilepath = writeParamsToFile(
-		"e",
+		"se",
 		base64EncodedStringToEncrypt,
 		senderNonce,
 		requesterNonce,

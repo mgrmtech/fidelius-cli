@@ -26,9 +26,9 @@ jar {
 		)
 	}
 	/*
-	 ** We can't bundle cryptographic libraries, such as bouncycastle.
+	 ** We can't bundle cryptographic libraries, such as bouncycastle into a fat jar.
 	 ** They have to be signed for the JVM to load them, and their
-	 ** signature is destroyed when merged into the fat jar.
+	 ** signature is destroyed when merged into a fat jar.
 	 ** 
 	 ** It is also not recommended to exclude such signatures, to circumvent the above issue,
 	 ** as this could eventually break some of the library's cryptographic operations.
@@ -38,6 +38,16 @@ jar {
 	 ** }
 	 ** exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 	*/
+}
+
+task unzipBuildDist(type: Copy) {
+	dependsOn(build)
+
+	def zipFile = file('build/distributions/fidelius-cli-' + version + '.zip')
+	def outputDir = file("${buildDir}/distributions")
+
+	from zipTree(zipFile)
+	into outputDir
 }
 
 application {

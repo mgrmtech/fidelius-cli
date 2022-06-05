@@ -3,6 +3,13 @@ const { execSync } = require("child_process");
 const { writeFileSync, unlinkSync } = require("fs");
 const { generateRandomUUID, ensureDirExists } = require("./utils.js");
 
+/* NOTE
+ ** Ensure the version in fideliusVersion is correct
+ **
+ ** Run the command "./gradlew clean build unzipBuildDist", before running this example,
+ ** to ensure that the binPath exists.
+ */
+
 const fideliusVersion = "1.1.0";
 const binPath = path.join(
 	__dirname,
@@ -34,7 +41,11 @@ const getEcdhKeyMaterial = () => {
 
 const writeParamsToFile = (...params) => {
 	const fileContents = params.join("\n");
-	const filepath = path.join(__dirname, "tmp", `${generateRandomUUID()}.txt`);
+	const filepath = path.join(
+		__dirname,
+		"temp",
+		`${generateRandomUUID()}.txt`
+	);
 	ensureDirExists(filepath);
 	writeFileSync(filepath, fileContents);
 	return filepath;
@@ -110,7 +121,7 @@ const runExample = ({ stringToEncrypt }) => {
 
 	console.log({ requesterKeyMaterial, senderKeyMaterial });
 
-	const saneEncryptionResult = saneEncryptData({
+	const encryptionResult = encryptData({
 		stringToEncrypt,
 		senderNonce: senderKeyMaterial.nonce,
 		requesterNonce: requesterKeyMaterial.nonce,
@@ -118,7 +129,7 @@ const runExample = ({ stringToEncrypt }) => {
 		requesterPublicKey: requesterKeyMaterial.publicKey,
 	});
 
-	const saneEncryptionWithX509PublicKeyResult = saneEncryptData({
+	const encryptionWithX509PublicKeyResult = encryptData({
 		stringToEncrypt,
 		senderNonce: senderKeyMaterial.nonce,
 		requesterNonce: requesterKeyMaterial.nonce,
@@ -127,13 +138,13 @@ const runExample = ({ stringToEncrypt }) => {
 	});
 
 	console.log({
-		encryptedData: saneEncryptionResult?.encryptedData,
+		encryptedData: encryptionResult?.encryptedData,
 		encryptedDataWithX509PublicKey:
-			saneEncryptionWithX509PublicKeyResult?.encryptedData,
+			encryptionWithX509PublicKeyResult?.encryptedData,
 	});
 
 	const decryptionResult = decryptData({
-		encryptedData: saneEncryptionResult?.encryptedData,
+		encryptedData: encryptionResult?.encryptedData,
 		requesterNonce: requesterKeyMaterial.nonce,
 		senderNonce: senderKeyMaterial.nonce,
 		requesterPrivateKey: requesterKeyMaterial.privateKey,
@@ -141,7 +152,7 @@ const runExample = ({ stringToEncrypt }) => {
 	});
 
 	const decryptionResultWithX509PublicKey = decryptData({
-		encryptedData: saneEncryptionResult?.encryptedData,
+		encryptedData: encryptionResult?.encryptedData,
 		requesterNonce: requesterKeyMaterial.nonce,
 		senderNonce: senderKeyMaterial.nonce,
 		requesterPrivateKey: requesterKeyMaterial.privateKey,

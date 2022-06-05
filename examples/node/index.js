@@ -21,9 +21,8 @@ const binPath = path.join(
 );
 
 const execFideliusCli = (args) => {
-	const shellCommand = process.platform !== "win32" ? "sh" : "";
 	const execOptions = { encoding: "utf-8" };
-	const fideliusCommand = `${shellCommand} ${binPath} ${args.join(" ")}`;
+	const fideliusCommand = `${binPath} ${args.join(" ")}`;
 
 	const result = execSync(fideliusCommand, execOptions);
 	try {

@@ -18,6 +18,8 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
+!**/examples/**/bin
+
 ### IntelliJ IDEA ###
 .idea
 *.iws

@@ -2,15 +2,9 @@
 
 Fidelius CLI is an opinionated ECDH cryptography CLI tool (based on Curve25519, corresponding key-pair generation spec, custom HMAC-based Key Derivation Function for generating AES-GCM data encryption/decryption keys).
 
-The core logic for Fidelius CLI was excerpted (and improved upon) from [this project](https://github.com/sukreet/fidelius). As mentioned there, the name Fidelius comes from [Fidelius Charm](https://harrypotter.fandom.com/wiki/Fidelius_Charm), a magic spell used to conceal secrets.
-
 While Fidelius CLI can be used to serve a general purpose end-to-end encryption need, it has primarily been designed for encrypting/decrypting health data in the ABDM ecosystem (Ayushman Bharat Digital Mission — Indian Government's venture at creating a digital backbone to support the integrated digital health infrastructure of the country).
 
 As such, apart from the code in this project, [this link](https://sandbox.abdm.gov.in/docs/data_encrypt_decrypt) can be referred for an abstract overview of the key material generation, encryption, and decryption processes.
-
-## Acknowledgement
-
-Thanks to [Srinivas Gunti](https://github.com/itnug) for his help with a quick demo on turning a SpringBoot application into a CLI application; and to [Sai Somanath Komanduri](https://github.com/saisk8) for his help in figuring out the corresponding Gradle build quirks and/with the BouncyCastle import.
 
 ## Build
 
@@ -72,7 +66,7 @@ gradlew clean build jar
     	<sender-public-key>\;
     ```
 
-    -   `--filepath` (or `-f`) · The `--filepath` flag can be used to provide the CLI its parameters (command and the subsequent arguments) from a text file. This can be used to circumvent Windows' terminals' ["This command is too long" (>8192 characters) limitation](https://docs.microsoft.com/en-us/troubleshoot/windows-client/shell-experience/command-line-string-limitation) in case of long input strings.
+    -   `--filepath` (or `-f`) · The `--filepath` flag can be used to provide the CLI its parameters (command and the subsequent arguments) from a text file. This can be used as a workaround to the Windows' terminals' ["This command is too long" (>8192 characters) limitation](https://docs.microsoft.com/en-us/troubleshoot/windows-client/shell-experience/command-line-string-limitation) in case of long input strings.
 
     ```
     ./fidelius-cli -f /path/to/params/file.txt
@@ -111,7 +105,7 @@ $ ./fidelius-cli gkm
 ```
 # Note that the e (encrypt) command also accepts <requester-public-key> (the last argument) in X.509 standard
 $ ./fidelius-cli e\
-	"Wormtail should never have been Potter cottage's secret keeper."\
+	"Wormtail should never have been the Potter cottage's secret keeper."\
 	lmXgblZwotx+DfBgKJF0lZXtAXgBEYr5khh79Zytr2Y=\
 	6uj1RdDUbcpI3lVMZvijkMC8Te20O4Bcyz0SyivX8Eg=\
 	AYhVZpbVeX4KS5Qm/W0+9Ye2q3rnVVGmqRICmseWni4=\
@@ -134,7 +128,7 @@ $ ./fidelius-cli d\
 	BABVt+mpRLMXiQpIfEq6bj8hlXsdtXIxLsspmMgLNI1SR5mHgDVbjHO2A+U4QlMddGzqyEidzm1AkhtSxSO2Ahg=\;
 # OUTPUT:
 {
-	"decryptedData": "Wormtail should never have been Potter cottage's secret keeper."
+	"decryptedData": "Wormtail should never have been the Potter cottage's secret keeper."
 }
 ```
 
@@ -151,3 +145,9 @@ BABVt+mpRLMXiQpIfEq6bj8hlXsdtXIxLsspmMgLNI1SR5mHgDVbjHO2A+U4QlMddGzqyEidzm1AkhtS
 
 $ ./fidelius-cli --filepath /path/to/example-parms.txt
 ```
+
+## Acknowledgement
+
+The core logic for Fidelius CLI was excerpted (and improved upon) from [this project](https://github.com/sukreet/fidelius). As mentioned there, the name Fidelius comes from [Fidelius Charm](https://harrypotter.fandom.com/wiki/Fidelius_Charm), a magic spell used to conceal secrets.
+
+Thanks to [Srinivas Gunti](https://github.com/itnug) for his help with a quick demo on turning a SpringBoot application into a CLI application; and to [Sai Somanath Komanduri](https://github.com/saisk8) for his help in figuring out the corresponding Gradle build quirks and/with the BouncyCastle import.

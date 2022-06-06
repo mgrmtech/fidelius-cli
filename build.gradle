@@ -44,20 +44,24 @@ Collection getListOfFolders(String dir, String pattern) {
 	file(dir).listFiles({ file -> !file.isFile() && file.name ==~ pattern } as FileFilter)
 }
 
-task addBuildDistToExamples(type: Copy) {
+task addBuildDistToExamples {
 	// Perform a clean build of the project
 	dependsOn('clean')
 	dependsOn('build')
 	tasks.findByName('build').mustRunAfter('clean')
 
-	// Clean any previous distributions from the examples folder
-	delete getListOfFolders("${rootDir}/examples", /fidelius-cli-\d+\.\d+\.\d+/)
+	doLast {
+		copy {
+			// Clean any previous distributions from the examples folder
+			delete getListOfFolders("${rootDir}/examples", /fidelius-cli-\d+\.\d+\.\d+/)
 
-	// Unzip and copy build distribuion (.zip) into the examples folder
-	def zipFile = file("build/distributions/fidelius-cli-${version}.zip")
-	def outputDir = file("${rootDir}/examples")
-	from zipTree(zipFile)
-	into outputDir
+			// Unzip and copy build distribuion (.zip) into the examples folder
+			def zipFile = file("build/distributions/fidelius-cli-${version}.zip")
+			def outputDir = file("${rootDir}/examples")
+			from zipTree(zipFile)
+			into outputDir
+		}
+	}
 }
 
 application {

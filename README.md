@@ -150,6 +150,16 @@ $ ./fidelius-cli --filepath /path/to/example-parms.txt
 }
 ```
 
+## Examples
+
+The examples folder can be perused for guidance on integrating Fidelius CLI with Node JS, Python, and PHP codebases. They can be run with the following commands. 
+
+```
+$ node examples/node/index.js
+$ python3 examples/python/main.py
+$ php examples/php/index.php
+```
+
 ## Acknowledgement
 
 The core logic for Fidelius CLI was excerpted (and improved upon) from [this project](https://github.com/sukreet/fidelius). As mentioned there, the name Fidelius comes from [Fidelius Charm](https://harrypotter.fandom.com/wiki/Fidelius_Charm), a magic spell used to conceal secrets.

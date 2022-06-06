@@ -144,6 +144,10 @@ DMxHPri8d7IT23KgLk281zZenMfVHSdeamq0RhwlIBk=
 BABVt+mpRLMXiQpIfEq6bj8hlXsdtXIxLsspmMgLNI1SR5mHgDVbjHO2A+U4QlMddGzqyEidzm1AkhtSxSO2Ahg=
 
 $ ./fidelius-cli --filepath /path/to/example-parms.txt
+# OUTPUT:
+{
+	"decryptedData": "Wormtail should never have been the Potter cottage's secret keeper."
+}
 ```
 
 ## Acknowledgement

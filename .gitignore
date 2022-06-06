@@ -19,6 +19,8 @@ bin/
 !**/src/test/**/bin/
 
 !**/examples/**/bin
+__pycache__
+__MACOSX
 
 ### IntelliJ IDEA ###
 .idea

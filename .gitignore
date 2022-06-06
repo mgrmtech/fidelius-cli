@@ -1,26 +1,10 @@
 **/*/temp
+__pycache__
+__MACOSX
 
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-!**/examples/**/bin
-__pycache__
-__MACOSX
 
 ### IntelliJ IDEA ###
 .idea

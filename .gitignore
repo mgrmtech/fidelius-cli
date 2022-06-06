@@ -1,6 +1,7 @@
 **/*/temp
 __pycache__
 __MACOSX
+.DS_Store
 
 .gradle
 build/

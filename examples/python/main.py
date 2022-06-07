@@ -17,11 +17,14 @@ def execFideliusCli(args):
     result = subprocess.run(
         fideliusCommand, stdout=subprocess.PIPE, encoding='UTF-8'
     )
-    return json.loads(result.stdout)
+    try: 
+        return json.loads(result.stdout)
+    except: 
+        print(f'ERROR · execFideliusCli · Command: {" ".join(args)}\n{result.stdout}')
 
 
 def getEcdhKeyMaterial():
-    result = execFideliusCli(['gkm'])
+    result = execFideliusCli(['gk'])
     return result
 
 

@@ -24,7 +24,7 @@ def execFideliusCli(args):
 
 
 def getEcdhKeyMaterial():
-    result = execFideliusCli(['gk'])
+    result = execFideliusCli(['gkm'])
     return result
 
 

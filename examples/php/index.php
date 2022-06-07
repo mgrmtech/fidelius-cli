@@ -11,13 +11,17 @@ function execFideliusCli($args) {
 	$baseCommand = $GLOBALS['binPath'];
 	$fideliusCommand = "$baseCommand $argsStr";
 	$result = shell_exec($fideliusCommand);
-	return $result;
-	echo $result; 
+	$jsonObj = json_decode($result);
+	if ($jsonObj === null && json_last_error() !== JSON_ERROR_NONE) {
+		echo "ERROR · execFideliusCli · Command: $argsStr\n$result";
+		return;
+	}
+	return $jsonObj;
 }
 
 function getEcdhKeyMaterial() {
 	$result = execFideliusCli(["gkm"]);
-	return json_decode($result);
+	return $result;
 }
 
 function writeParamsToFile(...$params) {
@@ -45,7 +49,7 @@ function encryptData($encryptParams){
 	);
 	$result = execFideliusCli(["-f", $paramsFilePath]);
 	removeFilePath($paramsFilePath);
-	return json_decode($result);
+	return $result;
 }
 
 function decryptData($decryptParams) {
@@ -59,7 +63,7 @@ function decryptData($decryptParams) {
 	);
 	$result = execFideliusCli(["-f", $paramsFilePath]);
 	removeFilePath($paramsFilePath);
-	return json_decode($result);
+	return $result;
 }
 
 function runExample($stringToEncrypt) {
@@ -114,5 +118,5 @@ function runExample($stringToEncrypt) {
 	], JSON_PRETTY_PRINT) . PHP_EOL;
 }
 
-runExample('{"data": "There is no war in Ba Sing Se!"}')
+runExample('{"data": "There is no war in Ba Sing Se!"}');
 ?>

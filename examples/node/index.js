@@ -7,13 +7,6 @@ const {
 	ensureDirExists,
 } = require("./utils.js");
 
-/* NOTE
- **
- ** Run the gradle task addBuildDistToExamples ("./gradlew addBuildDistToExamples"),
- ** before running this example, to ensure that the binPath exists, and
- ** it contains the latest fidelius-cli distribution.
- */
-
 const fideliusVersion = getFideliusVersion();
 const binPath = path.join(
 	__dirname,

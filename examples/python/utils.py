@@ -15,7 +15,3 @@ def getFideliusVersion():
 def generateRandomUUID():
     return str(uuid.uuid4())
 
-
-def ensureDirExists(filePath):
-    os.makedirs(filePath, exist_ok=True)
-	return True

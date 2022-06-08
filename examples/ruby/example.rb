@@ -2,9 +2,13 @@ require "json"
 require "securerandom"
 require "fileutils"
 
+def gather_fidelius_version()
+  gradle_file = File.read(File.join(Dir.pwd, "../../build.gradle"))
+  gradle_file[/\d+\.\d+\.\d+/]
+end
+
 def exec_fidelius_cli(args)
-  fidelius_version = "1.2.0"
-  bin_path = File.join(Dir.pwd, "../fidelius-cli-#{fidelius_version}/bin/fidelius-cli")
+  bin_path = File.join(Dir.pwd, "../fidelius-cli-#{gather_fidelius_version}/bin/fidelius-cli")
   fidelius_command = [bin_path] + args
   result = `#{fidelius_command.join(" ")}`
   begin
@@ -22,10 +26,8 @@ def write_params_to_file(*params)
   file_contents = params.join("\n")
   file_path = File.join(Dir.pwd, "temp", "#{SecureRandom.uuid}.txt")
   FileUtils.mkdir_p(File.dirname(file_path))
-  temp_file = File.open(file_path, "w")
-  temp_file.puts(file_contents)
-  temp_file.close
-  return file_path
+  File.write(file_path, file_contents)
+  file_path
 end
 
 def remove_file_path(file_path)

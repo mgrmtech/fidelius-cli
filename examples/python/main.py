@@ -17,9 +17,9 @@ def execFideliusCli(args):
     result = subprocess.run(
         fideliusCommand, stdout=subprocess.PIPE, encoding='UTF-8'
     )
-    try: 
+    try:
         return json.loads(result.stdout)
-    except: 
+    except:
         print(f'ERROR · execFideliusCli · Command: {" ".join(args)}\n{result.stdout}')
 
 
@@ -31,7 +31,7 @@ def getEcdhKeyMaterial():
 def writeParamsToFile(*params):
     fileContents = '\n'.join(params)
     filePath = os.path.join(dirname, 'temp', f'{generateRandomUUID()}.txt')
-    os.makedirs(filePath, exist_ok=True)
+    os.makedirs(os.path.dirname(filePath), exist_ok=True)
     f = open(filePath, 'a')
     f.write(fileContents)
     f.close()

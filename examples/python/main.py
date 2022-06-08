@@ -1,9 +1,9 @@
 import os
-from datetime import datetime
+import uuid
 import json
 import subprocess
 
-from utils import getFideliusVersion, generateRandomUUID
+from utils import getFideliusVersion
 
 fideliusVersion = getFideliusVersion()
 dirname = os.path.dirname(os.path.abspath(__file__))
@@ -17,10 +17,12 @@ def execFideliusCli(args):
     result = subprocess.run(
         fideliusCommand, stdout=subprocess.PIPE, encoding='UTF-8'
     )
-    try: 
+    try:
         return json.loads(result.stdout)
-    except: 
-        print(f'ERROR · execFideliusCli · Command: {" ".join(args)}\n{result.stdout}')
+    except:
+        print(
+            f'ERROR · execFideliusCli · Command: {" ".join(args)}\n{result.stdout}'
+        )
 
 
 def getEcdhKeyMaterial():
@@ -30,7 +32,7 @@ def getEcdhKeyMaterial():
 
 def writeParamsToFile(*params):
     fileContents = '\n'.join(params)
-    filePath = os.path.join(dirname, 'temp', f'{generateRandomUUID()}.txt')
+    filePath = os.path.join(dirname, 'temp', f'{str(uuid.uuid4())}.txt')
     os.makedirs(filePath, exist_ok=True)
     f = open(filePath, 'a')
     f.write(fileContents)
@@ -38,7 +40,7 @@ def writeParamsToFile(*params):
     return filePath
 
 
-def removeFilePath(filePath):
+def removeFileAtPath(filePath):
     os.remove(filePath)
 
 
@@ -52,7 +54,7 @@ def encryptData(encryptParams):
         encryptParams['requesterPublicKey']
     )
     result = execFideliusCli(['-f', paramsFilePath])
-    removeFilePath(paramsFilePath)
+    removeFileAtPath(paramsFilePath)
     return result
 
 
@@ -66,7 +68,7 @@ def decryptData(decryptParams):
         decryptParams['senderPublicKey']
     )
     result = execFideliusCli(['-f', paramsFilePath])
-    removeFilePath(paramsFilePath)
+    removeFileAtPath(paramsFilePath)
     return result
 
 

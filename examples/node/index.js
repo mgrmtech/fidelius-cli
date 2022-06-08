@@ -34,17 +34,17 @@ const getEcdhKeyMaterial = () => {
 
 const writeParamsToFile = (...params) => {
 	const fileContents = params.join("\n");
-	const filepath = path.join(
+	const filePath = path.join(
 		__dirname,
 		"temp",
 		`${generateRandomUUID()}.txt`
 	);
-	ensureDirExists(filepath);
-	writeFileSync(filepath, fileContents);
-	return filepath;
+	ensureDirExists(filePath);
+	writeFileSync(filePath, fileContents);
+	return filePath;
 };
 
-const removeFileAtPath = (filepath) => unlinkSync(filepath);
+const removeFileAtPath = (filePath) => unlinkSync(filePath);
 
 const encryptData = ({
 	stringToEncrypt,
@@ -53,7 +53,7 @@ const encryptData = ({
 	senderPrivateKey,
 	requesterPublicKey,
 }) => {
-	const paramsFilepath = writeParamsToFile(
+	const paramsFilePath = writeParamsToFile(
 		"e",
 		stringToEncrypt,
 		senderNonce,
@@ -61,8 +61,8 @@ const encryptData = ({
 		senderPrivateKey,
 		requesterPublicKey
 	);
-	const result = execFideliusCli(["-f", paramsFilepath]);
-	removeFileAtPath(paramsFilepath);
+	const result = execFideliusCli(["-f", paramsFilePath]);
+	removeFileAtPath(paramsFilePath);
 	return result;
 };
 
@@ -75,7 +75,7 @@ const saneEncryptData = ({
 }) => {
 	const base64EncodedStringToEncrypt =
 		Buffer.from(stringToEncrypt).toString("base64");
-	const paramsFilepath = writeParamsToFile(
+	const paramsFilePath = writeParamsToFile(
 		"se",
 		base64EncodedStringToEncrypt,
 		senderNonce,
@@ -83,8 +83,8 @@ const saneEncryptData = ({
 		senderPrivateKey,
 		requesterPublicKey
 	);
-	const result = execFideliusCli(["-f", paramsFilepath]);
-	removeFileAtPath(paramsFilepath);
+	const result = execFideliusCli(["-f", paramsFilePath]);
+	removeFileAtPath(paramsFilePath);
 	return result;
 };
 
@@ -95,7 +95,7 @@ const decryptData = ({
 	requesterPrivateKey,
 	senderPublicKey,
 }) => {
-	const paramsFilepath = writeParamsToFile(
+	const paramsFilePath = writeParamsToFile(
 		"d",
 		encryptedData,
 		requesterNonce,
@@ -103,8 +103,8 @@ const decryptData = ({
 		requesterPrivateKey,
 		senderPublicKey
 	);
-	const result = execFideliusCli(["-f", paramsFilepath]);
-	removeFileAtPath(paramsFilepath);
+	const result = execFideliusCli(["-f", paramsFilePath]);
+	removeFileAtPath(paramsFilePath);
 	return result;
 };
 

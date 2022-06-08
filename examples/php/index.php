@@ -3,7 +3,6 @@
 require __DIR__ . '/utils.php';
 
 $fideliusVersion = getFideliusVersion();
-$dirname = dirname(__FILE__);
 $binPath = __DIR__ . "/../fidelius-cli-$fideliusVersion/bin/fidelius-cli"; 
 
 function execFideliusCli($args) {
@@ -34,7 +33,7 @@ function writeParamsToFile(...$params) {
 	return $filePath;
 }
 
-function removeFilePath($filePath) {
+function removeFileAtPath($filePath) {
 	unlink($filePath);
 }
 
@@ -48,7 +47,7 @@ function encryptData($encryptParams){
 		$encryptParams['requesterPublicKey']
 	);
 	$result = execFideliusCli(["-f", $paramsFilePath]);
-	removeFilePath($paramsFilePath);
+	removeFileAtPath($paramsFilePath);
 	return $result;
 }
 
@@ -62,7 +61,7 @@ function decryptData($decryptParams) {
 		$decryptParams['senderPublicKey']
 	);
 	$result = execFideliusCli(["-f", $paramsFilePath]);
-	removeFilePath($paramsFilePath);
+	removeFileAtPath($paramsFilePath);
 	return $result;
 }
 

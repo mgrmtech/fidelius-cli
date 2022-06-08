@@ -1,5 +1,12 @@
 <?php
 
+function getFideliusVersion() {
+	$dirname = dirname(__FILE__);
+	$gradleBuildContent = file_get_contents("$dirname/../../build.gradle");
+	preg_match('/\d+\.\d+\.\d+/', $gradleBuildContent, $match);
+	return $match[0];
+}
+
 function generateRandomUUID() {
 	return sprintf(
 		'%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
@@ -9,13 +16,6 @@ function generateRandomUUID() {
 		mt_rand(0, 0x3fff) | 0x8000,
 		mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
 	);
-}
-
-function getFideliusVersion() {
-	$dirname = dirname(__FILE__);
-	$contents = file_get_contents("$dirname/../../build.gradle");
-	preg_match('/\d+\.\d+\.\d+/', $contents, $match);
-	return $match[0];
 }
 
 function ensureDirExists($filePath) {

@@ -17,8 +17,5 @@ def generateRandomUUID():
 
 
 def ensureDirExists(filePath):
-    dirName = os.path.dirname(filePath)
-    if (os.path.isdir(dirName)):
-        return True
-    ensureDirExists(dirName)
-    os.mkdir(dirName)
+    os.makedirs(filePath, exist_ok=True)
+	return True

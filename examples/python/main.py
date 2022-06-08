@@ -3,7 +3,7 @@ from datetime import datetime
 import json
 import subprocess
 
-from utils import getFideliusVersion, ensureDirExists, generateRandomUUID
+from utils import getFideliusVersion, generateRandomUUID
 
 fideliusVersion = getFideliusVersion()
 dirname = os.path.dirname(os.path.abspath(__file__))
@@ -31,7 +31,7 @@ def getEcdhKeyMaterial():
 def writeParamsToFile(*params):
     fileContents = '\n'.join(params)
     filePath = os.path.join(dirname, 'temp', f'{generateRandomUUID()}.txt')
-    ensureDirExists(filePath)
+    os.makedirs(filePath, exist_ok=True)
     f = open(filePath, 'a')
     f.write(fileContents)
     f.close()

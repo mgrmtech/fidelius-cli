@@ -14,4 +14,3 @@ def getFideliusVersion():
 
 def generateRandomUUID():
     return str(uuid.uuid4())
-

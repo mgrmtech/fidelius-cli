@@ -157,7 +157,7 @@ The `./examples` folder can be perused for guidance on integrating Fidelius CLI 
 ```
 $ node examples/node/index.js
 $ python3 examples/python/main.py
-$ ruby examples/python/main.rb
+$ ruby examples/ruby/main.rb
 $ php examples/php/index.php
 ```
 

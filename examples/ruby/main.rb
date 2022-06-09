@@ -2,13 +2,13 @@ require "json"
 require "securerandom"
 require "fileutils"
 
-def gather_fidelius_version()
+def fetch_fidelius_version
   gradle_build_file_content = File.read(File.join(File.dirname(__FILE__), "../../build.gradle"))
   gradle_build_file_content[/\d+\.\d+\.\d+/]
 end
 
 def exec_fidelius_cli(args)
-  bin_path = File.join(File.dirname(__FILE__), "../fidelius-cli-#{gather_fidelius_version}/bin/fidelius-cli")
+  bin_path = File.join(File.dirname(__FILE__), "../fidelius-cli-#{fetch_fidelius_version}/bin/fidelius-cli")
   fidelius_command = [bin_path] + args
   result = `#{fidelius_command.join(" ")}`
   begin

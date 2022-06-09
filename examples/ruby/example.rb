@@ -3,8 +3,8 @@ require "securerandom"
 require "fileutils"
 
 def gather_fidelius_version()
-  gradle_file = File.read(File.join(Dir.pwd, "../../build.gradle"))
-  gradle_file[/\d+\.\d+\.\d+/]
+  gradle_build_file_content = File.read(File.join(Dir.pwd, "../../build.gradle"))
+  gradle_build_file_content[/\d+\.\d+\.\d+/]
 end
 
 def exec_fidelius_cli(args)
@@ -30,7 +30,7 @@ def write_params_to_file(*params)
   file_path
 end
 
-def remove_file_path(file_path)
+def remove_file_at_path(file_path)
   File.delete(file_path) if File.exist?(file_path)
 end
 
@@ -65,8 +65,6 @@ end
 def run_example(string_to_encrypt = '{"data": "There is no war in Ba Sing Se!"}')
   requester_key_material = generate_ecdh_key_material
   sender_key_material = generate_ecdh_key_material
-
-  puts("String to encrypt: #{string_to_encrypt}")
 
   puts(JSON.pretty_generate({
     requesterKeyMaterial: requester_key_material,
@@ -110,10 +108,12 @@ def run_example(string_to_encrypt = '{"data": "There is no war in Ba Sing Se!"}'
     senderPublicKey: sender_key_material["x509PublicKey"],
   })
 
+  puts("String to encrypt: #{string_to_encrypt}")
+
   puts(JSON.pretty_generate({
     decryptedData: decryption_result["decryptedData"],
     decryptedDataWithX509PublicKey: decryption_result_with_x509_public_key["decryptedData"],
   }))
 end
 
-run_example("Test String") if __FILE__ == $PROGRAM_NAME
+run_example if __FILE__ == $PROGRAM_NAME

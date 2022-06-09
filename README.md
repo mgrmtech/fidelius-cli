@@ -167,4 +167,4 @@ The core logic for Fidelius CLI was excerpted (and improved upon) from [this pro
 
 Thanks to [Srinivas Gunti](https://github.com/itnug) for his help with a quick demo on turning a SpringBoot application into a CLI application; and to [Sai Somanath Komanduri](https://github.com/saisk8) for his help in figuring out the corresponding Gradle build quirks and/with the BouncyCastle import.
 
-Thanks to [Ranveer Uppal](https://github.com/Ranveer0508) for contributing Python, and PHP examples.
+Thanks to [Ranveer Uppal](https://github.com/mgrmtech/fidelius-cli/commits?author=Ranveer0508) for contributing Python, and PHP example implementations. Thanks to [Sai Somanath Komanduri](https://github.com/mgrmtech/fidelius-cli/commits?author=saisk8) for contributing an example Ruby implementation.

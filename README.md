@@ -152,11 +152,12 @@ $ ./fidelius-cli --filepath /path/to/example-parms.txt
 
 ## Examples
 
-The `./examples` folder can be perused for guidance on integrating Fidelius CLI with Node JS, Python, and PHP codebases. These examples can be run with the following commands. 
+The `./examples` folder can be perused for guidance on integrating Fidelius CLI with Node JS, Python, Ruby, and PHP codebases. These examples can be run with the following commands.
 
 ```
 $ node examples/node/index.js
 $ python3 examples/python/main.py
+$ ruby examples/python/main.rb
 $ php examples/php/index.php
 ```
 

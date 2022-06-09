@@ -3,12 +3,12 @@ require "securerandom"
 require "fileutils"
 
 def gather_fidelius_version()
-  gradle_build_file_content = File.read(File.join(Dir.pwd, "../../build.gradle"))
+  gradle_build_file_content = File.read(File.join(File.dirname(__FILE__), "../../build.gradle"))
   gradle_build_file_content[/\d+\.\d+\.\d+/]
 end
 
 def exec_fidelius_cli(args)
-  bin_path = File.join(Dir.pwd, "../fidelius-cli-#{gather_fidelius_version}/bin/fidelius-cli")
+  bin_path = File.join(File.dirname(__FILE__), "../fidelius-cli-#{gather_fidelius_version}/bin/fidelius-cli")
   fidelius_command = [bin_path] + args
   result = `#{fidelius_command.join(" ")}`
   begin
@@ -24,7 +24,7 @@ end
 
 def write_params_to_file(*params)
   file_contents = params.join("\n")
-  file_path = File.join(Dir.pwd, "temp", "#{SecureRandom.uuid}.txt")
+  file_path = File.join(File.dirname(__FILE__), "temp", "#{SecureRandom.uuid}.txt")
   FileUtils.mkdir_p(File.dirname(file_path))
   File.write(file_path, file_contents)
   file_path
@@ -44,7 +44,7 @@ def encrypt_data(encrypt_params)
     encrypt_params[:requesterPublicKey]
   )
   result = exec_fidelius_cli(["-f", params_file_path])
-  remove_file_path(params_file_path)
+  remove_file_at_path(params_file_path)
   result
 end
 
@@ -58,7 +58,7 @@ def decrypt_data(decrypt_params)
     decrypt_params[:senderPublicKey]
   )
   result = exec_fidelius_cli(["-f", params_file_path])
-  remove_file_path(params_file_path)
+  remove_file_at_path(params_file_path)
   result
 end
 

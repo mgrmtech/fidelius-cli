@@ -9,12 +9,12 @@ end
 
 def exec_fidelius_cli(args)
   bin_path = File.join(File.dirname(__FILE__), "../fidelius-cli-#{fetch_fidelius_version}/bin/fidelius-cli")
-  fidelius_command = ([bin_path] + args).join(' ')
+  fidelius_command = ([bin_path] + args).join(" ")
   result = `#{fidelius_command}`
   begin
     result = JSON.parse(result)
   rescue JSON::ParserError
-    puts "ERROR · exec_fidelius_cli · Command: #{args.join(' ')}\n#{result}"
+    puts "ERROR · exec_fidelius_cli · Command: #{args.join(" ")}\n#{result}"
   end
 end
 
@@ -67,51 +67,51 @@ def run_example(string_to_encrypt = '{"data": "There is no war in Ba Sing Se!"}'
   sender_key_material = generate_ecdh_key_material
 
   puts(JSON.pretty_generate({
-                              requesterKeyMaterial: requester_key_material,
-                              senderKeyMaterial: sender_key_material
-                            }))
+    requesterKeyMaterial: requester_key_material,
+    senderKeyMaterial: sender_key_material,
+  }))
 
   encryption_result = encrypt_data({
-                                     string_to_encrypt: string_to_encrypt,
-                                     sender_nonce: sender_key_material['nonce'],
-                                     requester_nonce: requester_key_material['nonce'],
-                                     sender_private_key: sender_key_material['privateKey'],
-                                     requester_public_key: requester_key_material['publicKey']
-                                   })
+    string_to_encrypt: string_to_encrypt,
+    sender_nonce: sender_key_material['nonce'],
+    requester_nonce: requester_key_material['nonce'],
+    sender_private_key: sender_key_material['privateKey'],
+    requester_public_key: requester_key_material['publicKey'],
+  })
 
   encryption_result_with_x509_public_key = encrypt_data({
-                                                          string_to_encrypt: string_to_encrypt,
-                                                          sender_nonce: sender_key_material['nonce'],
-                                                          requester_nonce: requester_key_material['nonce'],
-                                                          sender_private_key: sender_key_material['privateKey'],
-                                                          requester_public_key: requester_key_material['x509PublicKey']
-                                                        })
+    string_to_encrypt: string_to_encrypt,
+    sender_nonce: sender_key_material['nonce'],
+    requester_nonce: requester_key_material['nonce'],
+    sender_private_key: sender_key_material['privateKey'],
+    requester_public_key: requester_key_material['x509PublicKey'],
+  })
 
   puts(JSON.pretty_generate({
-                              encryptedData: encryption_result['encryptedData'],
-                              encryptedDataWithX509PublicKey: encryption_result_with_x509_public_key['encryptedData']
-                            }))
+    encryptedData: encryption_result['encryptedData'],
+    encryptedDataWithX509PublicKey: encryption_result_with_x509_public_key['encryptedData'],
+  }))
 
   decryption_result = decrypt_data({
-                                     encrypted_data: encryption_result['encryptedData'],
-                                     requester_nonce: requester_key_material['nonce'],
-                                     sender_nonce: sender_key_material['nonce'],
-                                     requester_private_key: requester_key_material['privateKey'],
-                                     sender_public_key: sender_key_material['publicKey']
-                                   })
+    encrypted_data: encryption_result['encryptedData'],
+    requester_nonce: requester_key_material['nonce'],
+    sender_nonce: sender_key_material['nonce'],
+    requester_private_key: requester_key_material['privateKey'],
+    sender_public_key: sender_key_material['publicKey'],
+  })
 
   decryption_result_with_x509_public_key = decrypt_data({
-                                                          encrypted_data: encryption_result['encryptedData'],
-                                                          requester_nonce: requester_key_material['nonce'],
-                                                          sender_nonce: sender_key_material['nonce'],
-                                                          requester_private_key: requester_key_material['privateKey'],
-                                                          sender_public_key: sender_key_material['x509PublicKey']
-                                                        })
+    encrypted_data: encryption_result['encryptedData'],
+    requester_nonce: requester_key_material['nonce'],
+    sender_nonce: sender_key_material['nonce'],
+    requester_private_key: requester_key_material['privateKey'],
+    sender_public_key: sender_key_material['x509PublicKey'],
+  })
 
   puts(JSON.pretty_generate({
-                              decryptedData: decryption_result['decryptedData'],
-                              decryptedDataWithX509PublicKey: decryption_result_with_x509_public_key['decryptedData']
-                            }))
+    decryptedData: decryption_result['decryptedData'],
+    decryptedDataWithX509PublicKey: decryption_result_with_x509_public_key['decryptedData'],
+  }))
 end
 
 run_example if __FILE__ == $PROGRAM_NAME

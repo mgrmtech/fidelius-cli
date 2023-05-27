@@ -10,8 +10,6 @@ The diagram below provides a visual representation of the health data flow betwe
 
 For more detailed information on the technical foundations and protocols involved in encrypting and decrypting FHIR data within the ABDM ecosystem, you can refer to [this comprehensive guide](./abdm/Encryption%20and%20Decryption%20Implementation%20Guidelines%20for%20FHIR%20data%20in%20ABDM.md).
 
-As such, apart from the code in this project, [this link](https://sandbox.abdm.gov.in/docs/data_encrypt_decrypt) can be referred for an abstract overview of the key material generation, encryption, and decryption processes.
-
 ## Build
 
 -   The following command(s) would build and generate .zip, and .tar distributions inside ./build/distributions

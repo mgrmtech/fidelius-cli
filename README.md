@@ -1,8 +1,14 @@
 # Fidelius CLI
 
-Fidelius CLI is an opinionated ECDH cryptography CLI tool (based on Curve25519, corresponding key-pair generation spec, custom HMAC-based Key Derivation Function for generating AES-GCM data encryption/decryption keys).
+Fidelius CLI is a specialized command-line interface (CLI) tool designed for ECDH cryptography. It is based on Curve25519 and incorporates a custom HMAC-based Key Derivation Function, enabling the generation of AES-GCM keys for data encryption and decryption.
 
-While Fidelius CLI can be used to serve a general purpose end-to-end encryption need, it has primarily been designed for encrypting/decrypting health data in the ABDM ecosystem (Ayushman Bharat Digital Mission — Indian Government's venture at creating a digital backbone to support the integrated digital health infrastructure of the country).
+While Fidelius CLI can be used for various end-to-end encryption needs, its primary purpose is to secure health data within the ABDM ecosystem. ABDM stands for Ayushman Bharat Digital Mission, an initiative by the Indian Government to establish a nationwide digital infrastructure supporting integrated digital health services.
+
+The diagram below provides a visual representation of the health data flow between a Health Information User and a Health Information Provider, who play vital roles in the ABDM system. The encryption and decryption steps in the flowchart are appropriately labeled as "HANDLED BY FIDELIUS CLI" to indicate the involvement of Fidelius CLI in these processes.
+
+![Summary of FHIR Data Flow between HIP and HIU, with Fidelius CLI](./abdm/HI%20Data%20Flow%20between%20HIP%20and%20HIU%20%C2%B7%20ABDM%20%C2%B7%20FIDELIUS%20CLI.drawio.png)
+
+For more detailed information on the technical foundations and protocols involved in encrypting and decrypting FHIR data within the ABDM ecosystem, you can refer to [this comprehensive guide](./abdm/Encryption%20and%20Decryption%20Implementation%20Guidelines%20for%20FHIR%20data%20in%20ABDM.md).
 
 As such, apart from the code in this project, [this link](https://sandbox.abdm.gov.in/docs/data_encrypt_decrypt) can be referred for an abstract overview of the key material generation, encryption, and decryption processes.
 

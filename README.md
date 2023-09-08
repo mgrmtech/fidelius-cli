@@ -45,7 +45,7 @@ gradlew clean build jar
       <sender-nonce>\
       <requester-nonce>\
       <sender-private-key>\
-      <requester-public-key>\;
+      <requester-public-key>
     ```
 
     -   `sane-encrypt` (or `se`) · The `sane-encrypt` command behaves identically to the encrypt command, with the only difference being that it accepts base64 encoded version of the input string. Fidelius would decode this base64 value to the original string, before encrypting it. This is available to circumvent the need to escape special characters in strings (e.g. JSON values).
@@ -56,7 +56,7 @@ gradlew clean build jar
       <sender-nonce>\
       <requester-nonce>\
       <sender-private-key>\
-      <requester-public-key>\;
+      <requester-public-key>
     ```
 
     -   `decrypt` (or `d`) · The `decrypt` command takes the following additional arguments.

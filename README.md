@@ -111,7 +111,7 @@ Note that the e (encrypt) command also accepts the `<requester-public-key>` (the
 
 ```bash
 $ ./fidelius-cli e\
-  "Wormtail should never have been the Potter cottage's secret keeper."\
+  "Wormtail should never have been Potter cottage's secret keeper."\
   lmXgblZwotx+DfBgKJF0lZXtAXgBEYr5khh79Zytr2Y=\
   6uj1RdDUbcpI3lVMZvijkMC8Te20O4Bcyz0SyivX8Eg=\
   AYhVZpbVeX4KS5Qm/W0+9Ye2q3rnVVGmqRICmseWni4=\
@@ -133,7 +133,7 @@ $ ./fidelius-cli d\
   DMxHPri8d7IT23KgLk281zZenMfVHSdeamq0RhwlIBk=\
   BABVt+mpRLMXiQpIfEq6bj8hlXsdtXIxLsspmMgLNI1SR5mHgDVbjHO2A+U4QlMddGzqyEidzm1AkhtSxSO2Ahg=
 {
-  "decryptedData": "Wormtail should never have been the Potter cottage's secret keeper."
+  "decryptedData": "Wormtail should never have been Potter cottage's secret keeper."
 }
 ```
 
